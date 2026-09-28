@@ -1,0 +1,63 @@
+/* MISSION CONTROL — CRT terminal theme.
+   Themes switch via <html data-theme="..."> so `theme green/amber` just flips one attribute. */
+:root,
+[data-theme="green"] {
+  --fg: #33ff66;
+  --fg-dim: #1a9944;
+  --bg: #020a03;
+  --glow: rgba(51, 255, 102, 0.45);
+  --danger: #ff4444;
+  --warn: #ffcc00;
+}
+[data-theme="amber"] {
+  --fg: #ffb000;
+  --fg-dim: #9e6c00;
+  --bg: #0d0700;
+  --glow: rgba(255, 176, 0, 0.45);
+  --danger: #ff5533;
+  --warn: #ffee66;
+}
+
+* { box-sizing: border-box; margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Courier New", "IBM Plex Mono", monospace;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+#crt { min-height: 100vh; display: flex; }
+
+/* subtle CRT curvature + vignette */
+#screen {
+  flex: 1;
+  padding: 24px 28px;
+  text-shadow: 0 0 6px var(--glow);
+  position: relative;
+  z-index: 2;
+}
+#scanlines {
+  position: fixed; inset: 0; pointer-events: none; z-index: 3;
+  background: repeating-linear-gradient(
+    to bottom, transparent 0 2px, rgba(0, 0, 0, 0.22) 2px 3px);
+}
+
+#output { white-space: pre-wrap; word-break: break-word; padding-bottom: 8px; }
+#output .cmd-echo  { color: var(--fg); }
+#output .dim       { color: var(--fg-dim); }
+#output .error     { color: var(--danger); }
+#output .warn      { color: var(--warn); }
+#output .section   { color: var(--fg); font-weight: bold; }
+#output img.apod   { max-width: 100%; max-height: 320px; display: block; margin: 6px 0;
+                     border: 1px solid var(--fg-dim); }
+#output canvas     { display: block; margin: 8px 0; border: 1px solid var(--fg-dim); }
+
+#inputline { display: flex; gap: 8px; }
+#prompt { white-space: nowrap; color: var(--fg); }
+#cmd {
+  flex: 1; background: transparent; border: none; outline: none;
+  color: var(--fg); font: inherit; text-shadow: 0 0 6px var(--glow); caret-color: var(--fg);
+}
+a { color: var(--fg); }
